@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.ksl.wsd2025.api.v4.ItemController4Test" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00Z" hostname="DESKTOP-HH6KEIR" time="0.0">
+  <properties/>
+  <system-out><![CDATA[2026-10-08T21:54:29.237+09:00  INFO 115692 --- [WSD-2025] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.ksl.wsd2025.api.v4.ItemController4Test]: ItemController4Test does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-08T21:54:29.240+09:00  INFO 115692 --- [WSD-2025] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.ksl.wsd2025.Wsd2025Application for test class com.example.ksl.wsd2025.api.v4.ItemController4Test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

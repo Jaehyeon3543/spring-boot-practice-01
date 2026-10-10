@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="2-1. GET /summary 개수와 가격 합산" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-08T12:54:29.739Z" hostname="DESKTOP-HH6KEIR" time="0.025">
+  <properties/>
+  <testcase name="200: 개수와 합계" classname="com.example.ksl.wsd2025.api.v4.ItemController4Test$Summary" time="0.008"/>
+  <testcase name="200: 아이템이 없으면 0개, 0원 (API 키 없이 조회 가능)" classname="com.example.ksl.wsd2025.api.v4.ItemController4Test$Summary" time="0.005"/>
+  <testcase name="500: 가격 합계가 int 범위를 넘음" classname="com.example.ksl.wsd2025.api.v4.ItemController4Test$Summary" time="0.01"/>
+  <system-out><![CDATA[2026-10-08T21:54:29.735+09:00  INFO 115692 --- [WSD-2025] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.ksl.wsd2025.api.v4.ItemController4Test$Summary]: Summary does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-08T21:54:29.737+09:00  INFO 115692 --- [WSD-2025] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.ksl.wsd2025.Wsd2025Application for test class com.example.ksl.wsd2025.api.v4.ItemController4Test$Summary
+[LoggingInterceptor] 요청 시작: DELETE /api/v4/items
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: POST /api/v4/items/bulk
+[LoggingInterceptor] 요청 완료, status=201
+[LoggingInterceptor] 요청 시작: POST /api/v4/items/bulk
+[LoggingInterceptor] 요청 완료, status=201
+[LoggingInterceptor] 요청 시작: GET /api/v4/items/summary
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: DELETE /api/v4/items
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: GET /api/v4/items/summary
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: DELETE /api/v4/items
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: POST /api/v4/items/bulk
+[LoggingInterceptor] 요청 완료, status=201
+[LoggingInterceptor] 요청 시작: POST /api/v4/items/bulk
+[LoggingInterceptor] 요청 완료, status=201
+[LoggingInterceptor] 요청 시작: GET /api/v4/items/summary
+[ItemController4] 요청 실패: status=500, code=PRICE_SUM_OVERFLOW
+[LoggingInterceptor] 요청 완료, status=500
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - ItemController4MaintenanceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>ItemController4MaintenanceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.ksl.wsd2025.api.v4.html">com.example.ksl.wsd2025.api.v4</a> &gt; ItemController4MaintenanceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.099s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">503: 점검 모드에서는 GET 요청도 차단</td>
+<td class="success">getBlocked()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">v3 API 는 점검 모드의 영향을 받지 않음</td>
+<td class="success">otherVersionNotAffected()</td>
+<td class="success">0.065s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">503: 올바른 API 키가 있어도 차단</td>
+<td class="success">postBlockedEvenWithApiKey()</td>
+<td class="success">0.029s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-10-08T21:54:28.840+09:00  INFO 115692 --- [WSD-2025] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.ksl.wsd2025.api.v4.ItemController4MaintenanceTest]: ItemController4MaintenanceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-08T21:54:28.857+09:00  INFO 115692 --- [WSD-2025] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.ksl.wsd2025.Wsd2025Application for test class com.example.ksl.wsd2025.api.v4.ItemController4MaintenanceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2026-10-08T21:54:28.878+09:00  INFO 115692 --- [WSD-2025] [    Test worker] e.k.w.a.v.ItemController4MaintenanceTest : Starting ItemController4MaintenanceTest using Java 21.0.12.1 with PID 115692 (started by wogus3543 in /home/wogus3543/workspace/wsd_Project/Spring-boot-Practice/springboot-tutorial)
+2026-10-08T21:54:28.878+09:00  INFO 115692 --- [WSD-2025] [    Test worker] e.k.w.a.v.ItemController4MaintenanceTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-10-08T21:54:29.119+09:00  INFO 115692 --- [WSD-2025] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-08T21:54:29.119+09:00  INFO 115692 --- [WSD-2025] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-08T21:54:29.121+09:00  INFO 115692 --- [WSD-2025] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-08T21:54:29.130+09:00  INFO 115692 --- [WSD-2025] [    Test worker] e.k.w.a.v.ItemController4MaintenanceTest : Started ItemController4MaintenanceTest in 0.27 seconds (process running for 3.113)
+[LoggingInterceptor] 요청 시작: GET /api/v3/items
+[LoggingInterceptor] 요청 완료, status=200
+[LoggingInterceptor] 요청 시작: POST /api/v4/items/bulk
+[LoggingInterceptor] 요청 거절: status=503, code=SERVICE_UNDER_MAINTENANCE
+[LoggingInterceptor] 요청 시작: GET /api/v4/items/summary
+[LoggingInterceptor] 요청 거절: status=503, code=SERVICE_UNDER_MAINTENANCE
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.14.3</a> at Oct 8, 2026, 9:54:29 PM</p>
+</div>
+</div>
+</body>
+</html>

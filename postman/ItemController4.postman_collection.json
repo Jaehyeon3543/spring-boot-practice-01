@@ -1,0 +1,989 @@
+{
+  "info": {
+    "name": "ItemController4 (v4 API)",
+    "description": "Backend Framework 실습 과제 - v4 API 테스트",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. 정상 동작 (API 8개, 200 / 201)",
+      "description": "서버를 새로 실행한 직후 위에서부터 순서대로 보내세요. (id 가 1부터 시작해야 함)",
+      "item": [
+        {
+          "name": "1-1. [201] POST 여러 개 생성",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "keyboard, mouse, cable 3개 생성 → id 1, 2, 3",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"keyboard\", \"price\": 50000},\n  {\"name\": \"mouse\", \"price\": 20000},\n  {\"name\": \"cable\", \"price\": 3000}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "1-2. [201] POST 아이템 복제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/1/copy",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "1",
+                "copy"
+              ]
+            },
+            "description": "id=1 (keyboard) 복제 → id 4 \"keyboard (copy)\""
+          }
+        },
+        {
+          "name": "2-1. [200] GET 개수와 가격 합산",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary"
+              ]
+            },
+            "description": "API 키 없이도 조회 가능 → count 4, totalPrice 123000"
+          }
+        },
+        {
+          "name": "2-2. [200] GET 가격 범위 조회",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-range?min=10000&max=60000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "price-range"
+              ],
+              "query": [
+                {
+                  "key": "min",
+                  "value": "10000"
+                },
+                {
+                  "key": "max",
+                  "value": "60000"
+                }
+              ]
+            },
+            "description": "10000~60000원, 가격 낮은 순 → mouse, keyboard, keyboard (copy)"
+          }
+        },
+        {
+          "name": "3-1. [200] PUT 특정 아이템 할인",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/2/discount?rate=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "2",
+                "discount"
+              ],
+              "query": [
+                {
+                  "key": "rate",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "mouse 10% 할인 → 20000 → 18000"
+          }
+        },
+        {
+          "name": "3-2. [200] PUT 전체 아이템 할인",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/discount?rate=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "discount"
+              ],
+              "query": [
+                {
+                  "key": "rate",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "전체 50% 할인"
+          }
+        },
+        {
+          "name": "4-2. [200] DELETE 가격 이하 삭제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/by-price?max=5000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "by-price"
+              ],
+              "query": [
+                {
+                  "key": "max",
+                  "value": "5000"
+                }
+              ]
+            },
+            "description": "5000원 이하(cable 1500원) 삭제 → deletedCount 1"
+          }
+        },
+        {
+          "name": "4-1. [200] DELETE 전체 삭제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "남은 3개 삭제 → deletedCount 3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. 클라이언트 오류 (400 / 401 / 404)",
+      "item": [
+        {
+          "name": "[400] 빈 배열로 생성",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = EMPTY_ITEM_LIST\", () => pm.expect(pm.response.json().error.code).to.eql(\"EMPTY_ITEM_LIST\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[400] name 이 비어 있음",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_ITEM_NAME\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_ITEM_NAME\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"\", \"price\": 1000}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[400] price 가 음수",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_ITEM_PRICE\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_ITEM_PRICE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"a\", \"price\": 1000},\n  {\"name\": \"b\", \"price\": -1}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[400] JSON 형식 오류",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_REQUEST_BODY\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_REQUEST_BODY\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[{\"name\": ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[400] 할인율이 0~100 밖",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_DISCOUNT_RATE\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_DISCOUNT_RATE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/discount?rate=150",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "discount"
+              ],
+              "query": [
+                {
+                  "key": "rate",
+                  "value": "150"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "[400] 할인율 파라미터 누락",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = MISSING_PARAMETER\", () => pm.expect(pm.response.json().error.code).to.eql(\"MISSING_PARAMETER\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/1/discount",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "1",
+                "discount"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "[400] 파라미터가 숫자가 아님",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_PARAMETER\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_PARAMETER\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-range?min=abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "price-range"
+              ],
+              "query": [
+                {
+                  "key": "min",
+                  "value": "abc"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "[401] API 키 없이 생성",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_API_KEY\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_API_KEY\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "X-API-KEY 헤더 없음",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"a\", \"price\": 1000}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[401] 틀린 API 키로 삭제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = INVALID_API_KEY\", () => pm.expect(pm.response.json().error.code).to.eql(\"INVALID_API_KEY\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "wrong-key"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "X-API-KEY: wrong-key"
+          }
+        },
+        {
+          "name": "[404] 없는 아이템 복제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = ITEM_NOT_FOUND\", () => pm.expect(pm.response.json().error.code).to.eql(\"ITEM_NOT_FOUND\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/999/copy",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "999",
+                "copy"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "[404] 없는 아이템 할인",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = ITEM_NOT_FOUND\", () => pm.expect(pm.response.json().error.code).to.eql(\"ITEM_NOT_FOUND\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/999/discount?rate=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "999",
+                "discount"
+              ],
+              "query": [
+                {
+                  "key": "rate",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. 서버 오류 (500)",
+      "description": "순서대로 보내세요. 큰 가격 아이템 2개를 만든 뒤 합산하면 int 범위를 넘어 500 이 발생합니다.",
+      "item": [
+        {
+          "name": "(준비) [201] 아주 비싼 아이템 2개 생성",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"car\", \"price\": 2000000000},\n  {\"name\": \"house\", \"price\": 2000000000}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[500] GET 합산 - 합계 범위 초과",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 500\", () => pm.response.to.have.status(500));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = PRICE_SUM_OVERFLOW\", () => pm.expect(pm.response.json().error.code).to.eql(\"PRICE_SUM_OVERFLOW\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "(정리) [200] DELETE 전체 삭제",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"success = true\", () => pm.expect(pm.response.json().success).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. 점검 모드 (503)",
+      "description": "서버를 점검 모드로 다시 실행한 뒤 보내세요.\n./gradlew bootRun --args='--app.maintenance=true'",
+      "item": [
+        {
+          "name": "[503] 점검 모드에서 조회",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 503\", () => pm.response.to.have.status(503));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = SERVICE_UNDER_MAINTENANCE\", () => pm.expect(pm.response.json().error.code).to.eql(\"SERVICE_UNDER_MAINTENANCE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "[503] 점검 모드에서 생성 (올바른 키여도 차단)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"상태 코드 503\", () => pm.response.to.have.status(503));",
+                  "pm.test(\"success = false\", () => pm.expect(pm.response.json().success).to.eql(false));",
+                  "pm.test(\"error.code = SERVICE_UNDER_MAINTENANCE\", () => pm.expect(pm.response.json().error.code).to.eql(\"SERVICE_UNDER_MAINTENANCE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\"name\": \"a\", \"price\": 1000}\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v4/items"
+    },
+    {
+      "key": "apiKey",
+      "value": "wsd2025"
+    }
+  ]
+}
