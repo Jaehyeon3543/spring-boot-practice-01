@@ -209,3 +209,38 @@ cd springboot-tutorial
 ./gradlew bootRun                                   # 일반 모드
 ./gradlew bootRun --args='--app.maintenance=true'   # 점검 모드 (503 테스트용)
 ```
+
+## 응답코드 테스트
+
+* 테스트 코드는 Postman 컬렉션 파일에 따로 작성했습니다. → `springboot-tutorial/postman/ItemController4.postman_collection.json`
+* 각 요청의 Tests 스크립트에서 `상태 코드`, `success` 값, `error.code` 를 검사하도록 작성했고, Postman Runner 로 컬렉션을 실행한 결과입니다.
+
+### 1. 정상 동작 (2xx)
+
+* 8개 API 모두 201 / 200 으로 정상 응답 (16개 테스트 모두 통과)
+
+![정상동작 1](img/1.1-정상동작.png)
+
+![정상동작 2](img/1.2-정상동작.png)
+
+### 2. 클라이언트 오류 (4xx)
+
+* 400 / 401 / 404 응답 확인 (33개 테스트 모두 통과)
+
+![클라이언트오류 1](img/2.1-클라이언트오류.png)
+
+![클라이언트오류 2](img/2.2-클라이언트오류.png)
+
+![클라이언트오류 3](img/2.3-클라이언트오류.png)
+
+![클라이언트오류 4](img/2.4-클라이언트오류.png)
+
+### 3. 서버 오류 (5xx)
+
+* 500 : 아주 비싼 아이템을 만들어 가격 합계가 int 범위를 넘도록 한 뒤 합산 조회 (7개 테스트 모두 통과)
+
+![서버오류](img/3.1-서버오류.png)
+
+* 503 : 점검 모드로 실행한 뒤 요청을 보내면 미들웨어에서 503 으로 거절
+
+![점검모드실행](img/점검모드실행.png)
