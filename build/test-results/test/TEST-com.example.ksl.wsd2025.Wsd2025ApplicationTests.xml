@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.ksl.wsd2025.Wsd2025ApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-08T12:54:28.311Z" hostname="DESKTOP-HH6KEIR" time="0.522">
+<testsuite name="com.example.ksl.wsd2025.Wsd2025ApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-11T07:56:04.560Z" hostname="DESKTOP-HH6KEIR" time="0.911">
   <properties/>
-  <testcase name="contextLoads()" classname="com.example.ksl.wsd2025.Wsd2025ApplicationTests" time="0.522"/>
-  <system-out><![CDATA[21:54:26.851 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ksl.wsd2025.Wsd2025ApplicationTests]: Wsd2025ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:54:26.940 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ksl.wsd2025.Wsd2025Application for test class com.example.ksl.wsd2025.Wsd2025ApplicationTests
+  <testcase name="contextLoads()" classname="com.example.ksl.wsd2025.Wsd2025ApplicationTests" time="0.911"/>
+  <system-out><![CDATA[16:56:02.067 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ksl.wsd2025.Wsd2025ApplicationTests]: Wsd2025ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:56:02.198 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ksl.wsd2025.Wsd2025Application for test class com.example.ksl.wsd2025.Wsd2025ApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,9 +14,9 @@
 
  :: Spring Boot ::                (v3.5.7)
 
-2026-10-08T21:54:27.319+09:00  INFO 115692 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : Starting Wsd2025ApplicationTests using Java 21.0.12.1 with PID 115692 (started by wogus3543 in /home/wogus3543/workspace/wsd_Project/Spring-boot-Practice/springboot-tutorial)
-2026-10-08T21:54:27.320+09:00  INFO 115692 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : No active profile set, falling back to 1 default profile: "default"
-2026-10-08T21:54:28.291+09:00  INFO 115692 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : Started Wsd2025ApplicationTests in 1.223 seconds (process running for 2.274)
+2026-10-11T16:56:02.833+09:00  INFO 340857 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : Starting Wsd2025ApplicationTests using Java 21.0.12.1 with PID 340857 (started by wogus3543 in /home/wogus3543/workspace/wsd_Project/Spring-boot-Practice/springboot-tutorial)
+2026-10-11T16:56:02.835+09:00  INFO 340857 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T16:56:04.545+09:00  INFO 340857 --- [WSD-2025] [    Test worker] c.e.ksl.wsd2025.Wsd2025ApplicationTests  : Started Wsd2025ApplicationTests in 2.145 seconds (process running for 3.526)
 ]]></system-out>
   <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 WARNING: A Java agent has been loaded dynamically (/home/wogus3543/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.17.8/f09415827a71be7ed621c7bd02550678f28bc81c/byte-buddy-agent-1.17.8.jar)
