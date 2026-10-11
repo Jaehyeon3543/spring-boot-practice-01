@@ -2,9 +2,9 @@
 
 기존에 제공해주신 예제 프로젝트에 "v4" 파일을 생성해서 실습을 진행했습니다.
 
-* 컨트롤러 : `springboot-tutorial/src/main/java/com/example/ksl/wsd2025/api/v4/ItemController4.java`
-* 미들웨어 : `springboot-tutorial/src/main/java/com/example/ksl/wsd2025/config/LoggingInterceptor.java`
-* Postman 테스트 : `springboot-tutorial/postman/ItemController4.postman_collection.json`
+* 컨트롤러 : `src/main/java/com/example/ksl/wsd2025/api/v4/ItemController4.java`
+* 미들웨어 : `src/main/java/com/example/ksl/wsd2025/config/LoggingInterceptor.java`
+* Postman 테스트 : `postman/ItemController4.postman_collection.json`
 * 기본 주소 : `http://localhost:8080/api/v4/items`
 
 ## A. HTTP 메소드별 API 구현
@@ -213,14 +213,14 @@
 ### 1. 실행
 
 ```bash
-cd springboot-tutorial
+cd spring-boot-practice-01
 ./gradlew bootRun                                   # 일반 모드
 ./gradlew bootRun --args='--app.maintenance=true'   # 점검 모드 (503 테스트용)
 ```
 
 ## 응답코드 테스트
 
-* 테스트 코드는 Postman 컬렉션 파일에 따로 작성했습니다. → `springboot-tutorial/postman/ItemController4.postman_collection.json`
+* 테스트 코드는 Postman 컬렉션 파일에 따로 작성했습니다. → `postman/ItemController4.postman_collection.json`
 * 각 요청의 Tests 스크립트에서 `상태 코드`, `success` 값, `error.code` 를 검사하도록 작성했고, Postman Runner 로 컬렉션을 실행한 결과입니다.
 
 ### 1. 정상 동작 (2xx)
